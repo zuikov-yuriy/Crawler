@@ -3,10 +3,13 @@ require 'net/http'
 
 class Crawler
 
+  attr_accessor :link, :hop, :href_array, :href, :i, :lvl, :doc
+
   def initialize(link, hop)
      @link = link
      @hop = hop
      @href_array = []
+     @href =[]
      @i = 0
      @lvl = true
   end
@@ -27,7 +30,7 @@ class Crawler
      "END"
    else
      if @link != nil
-	      doc = Nokogiri::HTML(self.page.body)
+	      doc = Nokogiri::HTML(@link)
 	      doc.search('//a').each do |a| 
 		@href_array << a["href"]
 	      end
@@ -61,7 +64,7 @@ class Crawler
 end
 
 
-c = Crawler.new("http://web-catalog.org.ua/crawler/start.php", 3)
-puts c.show
+#c = Crawler.new("http://web-catalog.org.ua/crawler/start.php", 3)
+#puts c.show
 
 
